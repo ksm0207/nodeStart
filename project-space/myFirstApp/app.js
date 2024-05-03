@@ -1,7 +1,8 @@
 // 앱의 시작지점이며 항목로드/사용자요청을 처리한다.
 // npx cross-env DEBUG=myappName: DEBUG=myAppName 디버깅을 위해 로깅설정 / 
 // npx cross-env : 터미널에서 DEBUG 환경변수가 설정된다
-// npx cross-env DEBUG=HelloWorld:* npm start : 웹서버 실행
+// npx cross-env DEBUG=HelloWorld:* npm start : 웹서버 실행 (명령어 사용X)
+// npx cross-env DEBUG=MYFIRSTAPP:* npm run dev : v2 (현재명령어)
 
 var createError = require('http-errors');
 var express = require('express');
