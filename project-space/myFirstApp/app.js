@@ -1,40 +1,42 @@
-const express = require("express");
-const app = express();
-const port = 3000;
+const express = require('express')
+const app = express()
+const port = 3000
 
-app.get("/", (req, res) => res.send("Hello World!"));
+const products = [
+{
+  id: 1,
+  name: "Ivanhoe",
+  author: "Sir Walter Scott",
+},
+{
+  id: 2,
+  name: "Colour Magic",
+  author: "Terry Pratchett",
+},
+{
+  id: 3,
+  name: "The Bluest eye",
+  author: "Toni Morrison",
+},
+];
 
+app.get('/', (req, res) => res.send('Hello API!'));
 
-app.get("/users", isAuthorized, (req, res) => {
-  res.json([
-    {
-      id: 1,
-      name: "User Userson",
-    },
-  ]);
+app.get("/products/:id", (req, res) => {
+  res.json(products.find(p => p.id === +req.params.id));
 });
 
 app.get("/products", (req, res) => {
-  res.json([
-    {
-      id: 1,
-      name: "The Bluest Eye",
-    },
-  ]);
+  const page = +req.query.page;
+  const pageSize = +req.query.pageSize;
+
+  if (page && pageSize) {
+    const start = (page - 1) * pageSize;
+    const end = start + pageSize;
+    res.json(products.slice(start, end));
+  } else {
+    res.json(products);
+  }
 });
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
-
-// 사용자 인증정보 확인함수
-function isAuthorized(req, res, next) {
-  console.log("-----isAuthorized-----")
-  // console.log("Request : ",req)
-  // console.log("Response : ",res)
-  // console.log("Next : " , next)
-  const authHeader = req.headers.authorization
-  console.log("Auth Header : " , authHeader)
-  if (!authHeader || authHeader !== 'secretpassword') {
-    return res.status(401).send('Unauthorized: Access Denied')
-  }
-  next()
-}
+app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
