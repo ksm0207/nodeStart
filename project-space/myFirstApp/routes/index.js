@@ -7,4 +7,23 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+router.get('/animal', (req,res) => {
+  const animal = [
+    {
+      id : 1 ,
+      name : 'Dog',
+    },
+    {
+      id : 2 ,
+      name : 'Cat',
+    },
+    {
+      id : 3 ,
+      name : 'Tiger',
+    }
+  ]
+  res.json(animal)
+})
+
+
 module.exports = router;
