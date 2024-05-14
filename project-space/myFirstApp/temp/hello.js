@@ -4,6 +4,7 @@
     message : string
     date : Date
 */
+"use strict"
 function msgFn(message, date) {
     console.info("Hello ".concat(message, " ! date : ").concat(date.toDateString()));
 }
